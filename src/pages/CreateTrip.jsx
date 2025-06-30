@@ -5,6 +5,11 @@ import { AI_PROMPT, budgetOptions, travelCompanions } from "@/constant/options";
 import { AIModel } from "@/service/AIModel";
 import { useState } from "react";
 import { toast } from "sonner";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "@/service/FirebaseConfig";
+import { useUser } from "@clerk/clerk-react";
+import { Loader } from "lucide-react";
+import { useNavigate } from "react-router";
 
 const budget_arr = ["cheap", "moderate", "luxury"];
 const travel_arr = ["just me", "a couple", "family", "friends"];
@@ -15,6 +20,9 @@ function CreateTrip() {
     budget: "",
     traveling: "",
   });
+  const [load, setLoad] = useState(false)
+  const {user} = useUser()
+  const navigate = useNavigate()
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setData((prev) => ({ ...prev, [name]: value }));
@@ -34,16 +42,34 @@ function CreateTrip() {
       toast.error("Please fill all the fields");
       return;
     }
-    toast.success("Trip created successfully");
     const FINAL_PROMPT = AI_PROMPT.replace("{location}", data.destination)
       .replace("{noOfdays}", data.days)
       .replace("{budget}", data.budget)
       .replace("{traveling}", data.traveling)
       .replace("{noOfdays}", data.days);
-    console.log(FINAL_PROMPT);
-
-    const result = await AIModel({ prompt: FINAL_PROMPT });
-    console.log(result);
+    setLoad(true)
+    try {
+      const docId = Date.now().toString();
+      const result = await AIModel({ prompt: FINAL_PROMPT });
+      await setDoc(doc(db, "AI-Trip", docId), {
+        userSelection: data,
+        tripData: JSON.parse(result),
+        email: user?.primaryEmailAddress?.emailAddress,
+        id: docId,
+      });
+      toast.success("Trip created successfully");
+      navigate(`/view-trip/${docId}`)
+    } catch (error) {
+      console.log(error);
+    }finally{
+      setLoad(false)
+      setData({
+        destination: "",
+        days: 0,
+        budget: "",
+        traveling: "",
+      })  
+    }
   };
 
   return (
@@ -131,7 +157,11 @@ function CreateTrip() {
           </div>
         </div>
         <div className="my-8 flex justify-end">
-          <Button onClick={handleSubmit}>Generate Trip</Button>
+          <Button disabled={load} onClick={handleSubmit}>
+            {
+              load ? <Loader className="animate-spin w-4 h-4"/> :  'Generate Trip 🛄'
+            }
+          </Button>
         </div>
       </div>
     </div>

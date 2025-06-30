@@ -8,6 +8,7 @@ import { Toaster } from "sonner";
 import { ClerkProvider } from "@clerk/clerk-react";
 import SignInPage from "./components/auth/SignInPage";
 import Authenticate from "./components/auth/Authenticate";
+import ViewTrip from "./pages/ViewTrip";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -17,6 +18,10 @@ if (!PUBLISHABLE_KEY) {
 
 const router = createBrowserRouter([
   {
+    path:'/auth',
+    element:<SignInPage />
+  },
+  {
     path: "/",
     element: <App />,
   },
@@ -25,9 +30,9 @@ const router = createBrowserRouter([
     element: <Authenticate><CreateTrip /></Authenticate>,
   },
   {
-    path:'/auth',
-    element:<SignInPage />
-  }
+    path: "/view-trip/:tripId",
+    element:<ViewTrip />,
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
