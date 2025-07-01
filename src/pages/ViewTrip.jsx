@@ -4,6 +4,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from '@/service/FirebaseConfig';
 import InfoSection from '@/components/view-trip/InfoSection';
 import Hotels from '@/components/view-trip/Hotels';
+import PlaceToVisit from '@/components/view-trip/PlaceToVisit';
 
 function ViewTrip() {
     const {tripId} = useParams()
@@ -34,6 +35,8 @@ function ViewTrip() {
         <InfoSection trip={trip}/>
         {/* Recommended Hotel section */}
         <Hotels trip={trip}/>
+        {/* day plan */}
+        <PlaceToVisit trip={trip}/>
         
     </div>
   )
