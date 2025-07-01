@@ -7,7 +7,9 @@ function Header() {
   return (
     <div className="p-3 px-5 flex items-center justify-between bg-gray-100 shadow-md">
       <div className="w-12">
-        <img src="/logo.svg" alt="logo" />
+        <Link to='/'>
+          <img src="/logo.svg" alt="logo" />
+        </Link>
       </div>
       <div>
         <SignedIn>

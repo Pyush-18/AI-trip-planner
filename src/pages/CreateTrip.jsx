@@ -1,4 +1,3 @@
-import Header from "@/components/custom/Header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { AI_PROMPT, budgetOptions, travelCompanions } from "@/constant/options";
@@ -74,7 +73,6 @@ function CreateTrip() {
 
   return (
     <div>
-      <Header />
       <div className="sm:px-10 md:px-22 lg:px-56 xl:px-60 px-5 mt-10">
         <h2 className="font-bold text-3xl">
           Tell us your travel preferences 🚞🌴

@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { ShareIcon } from "lucide-react";
 
 function InfoSection({ trip }) {
+  
   return (
     <div>
       <img

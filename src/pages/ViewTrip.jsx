@@ -5,6 +5,7 @@ import { db } from '@/service/FirebaseConfig';
 import InfoSection from '@/components/view-trip/InfoSection';
 import Hotels from '@/components/view-trip/Hotels';
 import PlaceToVisit from '@/components/view-trip/PlaceToVisit';
+import Footer from '@/components/view-trip/Footer';
 
 function ViewTrip() {
     const {tripId} = useParams()
@@ -37,6 +38,8 @@ function ViewTrip() {
         <Hotels trip={trip}/>
         {/* day plan */}
         <PlaceToVisit trip={trip}/>
+        {/* footer section */}
+        <Footer />
         
     </div>
   )

@@ -1,12 +1,14 @@
-import React from 'react'
-import Hero from './components/custom/Hero'
+
 import Header from './components/custom/Header'
+import { Outlet } from 'react-router'
 
 function App() {
   return (
     <div className=''>
       <Header />
-      <Hero />
+      <main className='mt-4'>
+        <Outlet/>
+      </main>
     </div>
   )
 }
