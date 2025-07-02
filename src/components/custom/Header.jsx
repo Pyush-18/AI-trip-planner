@@ -6,7 +6,7 @@ import { PlusIcon } from "lucide-react";
 
 function Header() {
   return (
-    <div className="p-3 px-5 flex items-center justify-between bg-gray-100 shadow-md">
+    <div className="sticky top-0 left-0 p-3 px-5 flex items-center justify-between shadow-md bg-white z-50  ">
       <div className="w-12">
         <Link to="/">
           <img src="/logo.svg" alt="logo" />

@@ -10,8 +10,8 @@ function PlaceToVisit({ trip }) {
       <div>
         {trip?.tripData?.itinerary?.length > 0
           ? trip?.tripData?.itinerary?.map((place, idx) => (
-              <div key={idx}>
-                <h2 className="font-medium text-lg mt-2">Day {place?.day}</h2>
+              <div key={idx} >
+                <h2 className="font-medium  text-lg mt-8">Day {place?.day}</h2>
 
                 <div className="grid md:grid-cols-2  gap-5">
                   {place?.dailyPlan?.map((plan, idx) => (
@@ -25,7 +25,7 @@ function PlaceToVisit({ trip }) {
                 </div>
               </div>
             ))
-          : [1, 2, 3, 4].map((_, index) => <PlaceSkeleton key={index} />)}
+          : [1].map((_, index) => <PlaceSkeleton key={index} />)}
       </div>
     </div>
   );

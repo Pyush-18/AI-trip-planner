@@ -2,7 +2,7 @@ import React from "react";
 
 function PlaceSkeleton() {
   return (
-    <div class="animate-pulse bg-white rounded-xl shadow-lg p-4 flex items-start  gap-4 w-full max-w-xl">
+    <div class="animate-pulse bg-white rounded-xl shadow-lg p-4 flex items-start mt-2  gap-4 w-full max-w-xl">
       <div class="bg-gray-300 rounded-lg flex-shrink-0 h-28 w-28"></div>
 
       <div class="flex-grow">

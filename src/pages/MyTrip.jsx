@@ -47,6 +47,10 @@ function MyTrip() {
             ))
           : [1, 2, 3].map((_, index) => <CardSkeleton key={index} />)}
       </div>
+
+      <div className="w-48 bg-transparent h-60">
+
+      </div>
     </div>
   );
 }

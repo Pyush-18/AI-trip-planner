@@ -3,7 +3,7 @@ function MyTripCard({ trip }) {
     <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden">
       
       <img
-        src="/img1.webp"
+        src={`https://picsum.photos/seed/${trip?.userSelection?.destination}/1920/1080?random=${Math.floor(Math.random()* 100 + 1)}`}
         className="h-[200px] w-full object-cover" 
         alt="Trip destination"
       />

@@ -10,7 +10,7 @@ function PlaceCardItems({ plan }) {
     : 'https://picsum.photos/1920/1080';
     const fallbackImageUrl = '/img1.webp'
   return (
-    <div className="hover:shadow-md transition-all duration-200 hover:scale-101 border rounded-xl p-3 flex gap-5 h-[230px]">
+    <div className="hover:shadow-md transition-all duration-200 hover:scale-101 border rounded-xl p-3 flex gap-5 h-full auto-rows-fr">
       <img
        src={imageError? fallbackImageUrl : primaryImageUrl} 
         className="w-[130px] h-[130px] rounded-xl object-cover"
@@ -22,9 +22,9 @@ function PlaceCardItems({ plan }) {
         }}
       />
 
-      <div className="flex flex-col gap-3 w-full">
+      <div className="flex flex-col justify-between gap-1 w-full">
         <h2 className="font-bold text-lg">{plan?.placeName}</h2>
-        <p className="text-sm text-gray-500 line-clamp-4">
+        <p className="text-sm text-gray-500 ">
           {plan?.placeDetails}
         </p>
         <div className="flex items-center justify-between">

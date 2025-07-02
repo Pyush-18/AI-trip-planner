@@ -15,13 +15,13 @@ const travel_arr = ["just me", "a couple", "family", "friends"];
 function CreateTrip() {
   const [data, setData] = useState({
     destination: "",
-    days: 0,
+    days: 1,
     budget: "",
     traveling: "",
   });
-  const [load, setLoad] = useState(false)
-  const {user} = useUser()
-  const navigate = useNavigate()
+  const [load, setLoad] = useState(false);
+  const { user } = useUser();
+  const navigate = useNavigate();
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setData((prev) => ({ ...prev, [name]: value }));
@@ -37,8 +37,15 @@ function CreateTrip() {
   };
 
   const handleSubmit = async () => {
-    if (!data.destination && !data.days && !data.budget && !data.traveling) {
-      toast.error("Please fill all the fields");
+    if (
+      !data.destination ||
+      data.destination.trim() === "" ||
+      !data.days ||
+      data.days <= 0 ||
+      !data.budget ||
+      !data.traveling
+    ) {
+      toast.error("Please fill all the fields with valid value");
       return;
     }
     const FINAL_PROMPT = AI_PROMPT.replace("{location}", data.destination)
@@ -46,7 +53,7 @@ function CreateTrip() {
       .replace("{budget}", data.budget)
       .replace("{traveling}", data.traveling)
       .replace("{noOfdays}", data.days);
-    setLoad(true)
+    setLoad(true);
     try {
       const docId = Date.now().toString();
       const result = await AIModel({ prompt: FINAL_PROMPT });
@@ -57,17 +64,18 @@ function CreateTrip() {
         id: docId,
       });
       toast.success("Trip created successfully");
-      navigate(`/view-trip/${docId}`)
+      navigate(`/view-trip/${docId}`);
     } catch (error) {
       console.log(error);
-    }finally{
-      setLoad(false)
+      toast.error("Error while creating trip");
+    } finally {
+      setLoad(false);
       setData({
         destination: "",
         days: 0,
         budget: "",
         traveling: "",
-      })  
+      });
     }
   };
 
@@ -81,7 +89,6 @@ function CreateTrip() {
           {" "}
           Answer a few quick questions and we’ll build your perfect trip.
         </p>
-        ``
         <div className="mt-10 flex flex-col gap-10">
           <div>
             <h2 className="text-xl my-3 font-medium">
@@ -106,6 +113,8 @@ function CreateTrip() {
               onChange={handleInputChange}
               placeholder="Ex: 3"
               type="number"
+              min={1}
+              max={15}
             />
           </div>
 
@@ -156,9 +165,11 @@ function CreateTrip() {
         </div>
         <div className="my-8 flex justify-end">
           <Button disabled={load} onClick={handleSubmit}>
-            {
-              load ? <Loader className="animate-spin w-4 h-4"/> :  'Generate Trip 🛄'
-            }
+            {load ? (
+              <Loader className="animate-spin w-4 h-4" />
+            ) : (
+              "Generate Trip 🛄"
+            )}
           </Button>
         </div>
       </div>
