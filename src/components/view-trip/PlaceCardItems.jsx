@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { LocationEditIcon } from "lucide-react";
 import { Link } from "react-router";
 
 function PlaceCardItems({ plan }) {
+  const [imageError, setImageError] = useState(false)
+  const primaryImageUrl = plan?.placeName
+    ? `https://picsum.photos/seed/${plan.placeName}/1920/1080`
+    : 'https://picsum.photos/1920/1080';
+    const fallbackImageUrl = '/img1.webp'
   return (
     <div className="hover:shadow-md transition-all duration-200 hover:scale-101 border rounded-xl p-3 flex gap-5 h-[230px]">
       <img
-        src="/img1.webp"
+       src={imageError? fallbackImageUrl : primaryImageUrl} 
         className="w-[130px] h-[130px] rounded-xl object-cover"
-        alt="img"
+        alt={`${plan?.placeName || 'place'}`}
+        onError={(e) => {
+          if(e.target.src !== fallbackImageUrl){
+            setImageError(true)
+          }
+        }}
       />
 
       <div className="flex flex-col gap-3 w-full">

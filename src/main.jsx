@@ -10,6 +10,7 @@ import SignInPage from "./components/auth/SignInPage";
 import Authenticate from "./components/auth/Authenticate";
 import ViewTrip from "./pages/ViewTrip";
 import Hero from "./components/custom/Hero";
+import MyTrip from "./pages/MyTrip";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        index:true,
+        index: true,
         element: <Hero />,
       },
       {
@@ -41,6 +42,14 @@ const router = createBrowserRouter([
       {
         path: "/view-trip/:tripId",
         element: <ViewTrip />,
+      },
+      {
+        path: "/my-trip",
+        element: (
+          <Authenticate>
+            <MyTrip />
+          </Authenticate>
+        ),
       },
     ],
   },

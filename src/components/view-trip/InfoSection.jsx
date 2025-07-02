@@ -7,8 +7,8 @@ function InfoSection({ trip }) {
   return (
     <div>
       <img
-        className=" w-full h-[300px] object-cover rounded-xl"
-        src="/img1.webp"
+        className=" w-full h-[300px] object-cover  rounded-xl"
+        src={`https://picsum.photos/seed/${trip?.userSelection?.destination}/1920/1080`}
         alt="img"
       />
 
