@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Button } from "../ui/button";
 import { ShareIcon } from "lucide-react";
+import { toast } from "sonner";
 
 function InfoSection({ trip }) {
+  const shareRef = useRef()
+  const copyTheShareLink =async () => {
+    const shareLink = shareRef?.current?.baseURI
+    if(shareLink){
+      await  navigator.clipboard.writeText(shareLink)
+      toast.success("Link copied successfully")
+    }else{
+      toast.error("Error while cpying link")
+    }
+  }
   
   return (
     <div>
@@ -29,7 +40,7 @@ function InfoSection({ trip }) {
             </h2>
           </div>
         </div>
-        <Button><ShareIcon className="w-6 h-6"/> Share</Button>
+        <Button ref={shareRef} onClick={copyTheShareLink} ><ShareIcon className="w-6 h-6"/> Share</Button>
       </div>
     </div>
   );
